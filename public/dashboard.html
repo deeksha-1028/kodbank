@@ -1,34 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Kodbank Dashboard</title>
-    <link rel="stylesheet" href="style.css">
+  <title>Kodbank Dashboard</title>
+  <link rel="stylesheet" href="/style.css">
 </head>
-<body class="dashboard-body">
+<body>
 
-<div class="topbar">
-    <div class="logo">🏦 Kodbank</div>
-    <button class="logout-btn" onclick="logout()">Logout</button>
+<div class="navbar">
+  <div class="logo">🏦 Kodbank</div>
+  <button class="logout-btn" onclick="logout()">Logout</button>
 </div>
 
 <div class="dashboard-container">
-
-    <div class="welcome-card">
-        <h2>Welcome to Kodbank</h2>
-        <p>Your trusted financial partner</p>
-    </div>
-
-    <div class="balance-card">
-        <h3>Account Overview</h3>
-        <button class="primary-btn" onclick="checkBalance()">Check Balance</button>
-        <h1 id="balanceText" class="balance-text"></h1>
-    </div>
-
+  <div class="balance-card">
+    <h3>Account Balance</h3>
+    <button class="primary-btn" onclick="checkBalance()">Check Balance</button>
+    <div id="balance" class="balance-value"></div>
+  </div>
 </div>
 
 <canvas id="confetti"></canvas>
 
-<script src="script.js"></script>
-
+<script src="/script.js"></script>
 </body>
 </html>

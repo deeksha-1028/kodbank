@@ -2,24 +2,28 @@
 <html>
 <head>
   <title>Kodbank Register</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
-<div class="card">
-  <h2>Register</h2>
+<div class="auth-container">
+  <div class="auth-card">
+    <h2>📝 Create Account</h2>
 
-  <input type="number" id="uid" placeholder="User ID" required>
-  <input type="text" id="username" placeholder="Username" required>
-  <input type="password" id="password" placeholder="Password" required>
-  <input type="email" id="email" placeholder="Email" required>
-  <input type="text" id="phone" placeholder="Phone" required>
+    <input type="number" id="uid" placeholder="User ID">
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <input type="email" id="email" placeholder="Email">
+    <input type="text" id="phone" placeholder="Phone">
 
-  <button onclick="register()">Register</button>
+    <button class="primary-btn" onclick="register()">Register</button>
 
-  <p id="message"></p>
+    <p id="message"></p>
 
-  <p>Already have account? <a href="/login.html">Login</a></p>
+    <div class="link-text">
+      Already have account? <a href="/login.html">Login</a>
+    </div>
+  </div>
 </div>
 
 <script>
