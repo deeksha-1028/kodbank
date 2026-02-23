@@ -1,61 +1,41 @@
-async function checkBalance() {
-  const res = await fetch("/api/balance", {
-    method: "GET",
-    credentials: "include"
-  });
+async function askAI() {
 
-  const data = await res.json();
+  const input = document.getElementById("aiInput");
+  const replyDiv = document.getElementById("aiReply");
 
-  if (res.ok) {
-    const balanceEl = document.getElementById("balance");
-    balanceEl.innerText = "₹ " + data.balance;
-    launchConfetti();
-  } else {
-    alert("Session expired. Please login again.");
-    window.location.href = "/login.html";
+  const message = input.value.trim();
+
+  if (!message) {
+    replyDiv.innerText = "Please enter a question.";
+    return;
   }
+
+  replyDiv.innerText = "Thinking...";
+
+  try {
+    const response = await fetch("/ask-ai", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ message })
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      replyDiv.innerText = data.reply;
+    } else {
+      replyDiv.innerText = "AI request failed.";
+    }
+
+  } catch (error) {
+    replyDiv.innerText = "Server error.";
+  }
+
+  input.value = "";
 }
 
 function logout() {
-  document.cookie = "token=; Max-Age=0";
   window.location.href = "/login.html";
-}
-
-function launchConfetti() {
-  const canvas = document.getElementById("confetti");
-  const ctx = canvas.getContext("2d");
-
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-
-  const pieces = [];
-
-  for (let i = 0; i < 150; i++) {
-    pieces.push({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      size: Math.random() * 8 + 4,
-      speed: Math.random() * 3 + 2,
-      color: `hsl(${Math.random()*360},100%,50%)`
-    });
-  }
-
-  function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    pieces.forEach(p => {
-      ctx.fillStyle = p.color;
-      ctx.fillRect(p.x, p.y, p.size, p.size);
-      p.y += p.speed;
-      if (p.y > canvas.height) p.y = 0;
-    });
-
-    requestAnimationFrame(draw);
-  }
-
-  draw();
-
-  setTimeout(() => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-  }, 4000);
 }

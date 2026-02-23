@@ -3,24 +3,98 @@
 <head>
   <title>Kodbank Dashboard</title>
   <link rel="stylesheet" href="/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
-<div class="navbar">
-  <div class="logo">🏦 Kodbank</div>
-  <button class="logout-btn" onclick="logout()">Logout</button>
-</div>
+<div class="dashboard-layout">
 
-<div class="dashboard-container">
-  <div class="balance-card">
-    <h3>Account Balance</h3>
-    <button class="primary-btn" onclick="checkBalance()">Check Balance</button>
-    <div id="balance" class="balance-value"></div>
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <h2>🏦 Kodbank</h2>
+
+    <button class="side-btn">Dashboard</button>
+    <button class="side-btn">Analytics</button>
+    <button class="side-btn">Transactions</button>
+    <button class="side-btn" onclick="scrollToAI()">Ask AI</button>
+
+    <button class="logout-btn" onclick="logout()">Logout</button>
   </div>
-</div>
 
-<canvas id="confetti"></canvas>
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+
+    <h1 class="welcome-title">Welcome Back 👋</h1>
+
+    <!-- STAT CARDS -->
+    <div class="card-row">
+
+      <div class="stat-card">
+        <h4>Total Balance</h4>
+        <p id="totalBalance">₹ 100000</p>
+      </div>
+
+      <div class="stat-card">
+        <h4>Savings</h4>
+        <p>₹ 40000</p>
+      </div>
+
+      <div class="stat-card">
+        <h4>Monthly Expense</h4>
+        <p>₹ 15000</p>
+      </div>
+
+    </div>
+
+    <!-- GRAPH -->
+    <div class="graph-card">
+      <canvas id="financeChart"></canvas>
+    </div>
+
+    <!-- AI SECTION -->
+    <div class="ai-card" id="aiSection">
+      <h3>🤖 Kodbank AI Assistant</h3>
+
+      <input type="text" id="aiInput" placeholder="Ask banking question..." />
+      <button class="primary-btn" onclick="askAI()">Ask</button>
+
+      <div id="aiReply"></div>
+    </div>
+
+  </div>
+
+</div>
 
 <script src="/script.js"></script>
+
+<script>
+const ctx = document.getElementById('financeChart').getContext('2d');
+
+new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: ['Jan','Feb','Mar','Apr','May','Jun'],
+    datasets: [{
+      label: 'Spending',
+      data: [12000, 19000, 8000, 15000, 9000, 20000],
+      borderColor: '#06b6d4',
+      backgroundColor: 'rgba(6,182,212,0.2)',
+      tension: 0.4,
+      fill: true
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { display: false }
+    }
+  }
+});
+
+function scrollToAI(){
+  document.getElementById("aiSection").scrollIntoView({behavior:"smooth"});
+}
+</script>
+
 </body>
 </html>
